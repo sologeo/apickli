@@ -244,8 +244,18 @@ module.exports = function () {
         }
     });
 
-    this.Then(/^response body should be valid according to schema file (.*)$/, function(schemaFile, callback) {
+    this.Then(/^response body should validate against schema file (.*)$/, function(schemaFile, callback) {
         this.apickli.validateResponseWithSchema(schemaFile, function (assertion) {
+            if (assertion.success) {
+                callback();
+            } else {
+                callback(prettyPrintJson(assertion));
+            }
+        });
+    });
+
+    this.Then(/^response body path (.*) should validate against schema file (.*)$/, function(path, schemaFile, callback) {
+        this.apickli.validatePathWithSchema(path, schemaFile, function (assertion) {
             if (assertion.success) {
                 callback();
             } else {
