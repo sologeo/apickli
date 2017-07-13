@@ -313,6 +313,25 @@ Apickli.prototype.validateResponseWithSchema = function(schemaFile, callback) {
     });
 };
 
+Apickli.prototype.validatePathWithSchema = function(path, schemaFile, callback) {
+    var self = this;
+
+    schemaFile = this.replaceVariables(schemaFile, self.scenarioVariables, self.variableChar);
+    var responsepath = evaluatePath(path, this.getResponseObject().body);
+    
+    fs.readFile(this.fixturesDirectory + schemaFile, 'utf8', function(err, jsonSchemaString) {
+        if(err) {
+            callback(err);
+        }
+
+        var jsonSchema = JSON.parse(jsonSchemaString);
+        var validate = jsonSchemaValidator(jsonSchema, { verbose: true });
+        var success = validate(responsepath);
+
+        callback(getAssertionResult(success, validate.errors, null, self));
+    });
+};
+
 Apickli.prototype.validateResponseWithSwaggerSpecDefinition = function(definitionName, swaggerSpecFile, callback) {
     var self = this;
     swaggerSpecFile = this.replaceVariables(swaggerSpecFile, self.scenarioVariables, self.variableChar);
