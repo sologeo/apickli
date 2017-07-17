@@ -1,7 +1,7 @@
 {
-  "name": "cc-forked-apickli",
+  "name": "ccf-forked-apickli",
   "version": "1.7.4",
-  "description": "Collection of utility functions and a gherkin framework for REST API integration testing based on cucumber.js",
+  "description": "Collection of utility functions and a gherkin framework for REST API integration testing based on cucumber.js modified to support additional step definitions",
   "main": "apickli.js",
   "readme": "README.md",
   "repository": {
