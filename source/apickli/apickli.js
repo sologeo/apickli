@@ -76,7 +76,7 @@ Apickli.prototype.setRequestBody = function(body) {
 
 Apickli.prototype.setQueryParameters = function(queryParameters) {
     var self = this;
-    var paramsObject = {};
+    var paramsObject = this.queryParameters;
 
     queryParameters.forEach(function(q){
         var queryParameterName = self.replaceVariables(q.parameter);
