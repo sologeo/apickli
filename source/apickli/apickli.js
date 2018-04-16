@@ -326,7 +326,8 @@ Apickli.prototype.validatePathWithSchema = function(path, schemaFile, callback) 
 
         var jsonSchema = JSON.parse(jsonSchemaString);
         var validate = jsonSchemaValidator(jsonSchema, { verbose: true });
-        var success = validate(responsepath);
+        var success;
+        if(!responsepath) { success = false; } else { success = validate(responsepath); }
 
         callback(getAssertionResult(success, validate.errors, null, self));
     });
